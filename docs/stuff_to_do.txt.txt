@@ -1,0 +1,36 @@
+Here is a non-comprehensive list of stuff that needs to be done to build this application:
+    
+    - simple/boring tasks the have to be done regardless:
+        - test suite/software
+
+    - back-end:
+        - routine to read input file into a time-series array (pydub is kinda shit, might not be able to use it)
+
+        - pre-processing routine
+        - pitch detection routine
+        - onset detection routine
+        - post-processing routine
+        - thresholding/peak-picking routine
+
+        - stuff we need to figure out:
+            - rhythm detection routine (might need AI for this one, or a lot of bullshit math)
+            - tempo detection routine
+            - key signature detection
+            - time-signature detection routine (might also need AI for this one, or a lot of bullshit math)
+
+    - front-end:
+        - stuff we need to figure out:
+            - what language to use?
+            - what framework to use?
+            - desktop app or web app or both?
+
+            - routine to map time-frequency data to notated sheet music
+                - is there a library for this somewhere?
+            
+            - GUI:
+                - file explorer interface
+                - display
+                - the entire thing
+                
+
+    
