@@ -2,6 +2,7 @@
 #define AUDIO_DECODER
 
 #include "audio_data.hpp"
+#include <cstdint>
 #include <string>
 #include <vector>
 
@@ -11,16 +12,17 @@ class AudioDecoder {
 		// MEMBER VARIABLES
 		std::string filepath;
 
-		std::vector<uint8_t> raw_hex;
+		std::vector<std::uint8_t> raw_hex;
 
 		double sample_rate;
-		long bit_depth;
-		std::vector<uint32_t> samples;
+		unsigned int bit_depth;
+		std::vector<std::uint32_t> samples;
 		//////////////////////////////////////////////////////////////
 
-		std::vector<uint8_t> read_file();
+		// std::vector<uint8_t> read_file();
+		void read_file();
 
-		AudioData decode_wav();
+		void decode_wav();
 
 	public:
 		AudioDecoder(std::string path_to_file);

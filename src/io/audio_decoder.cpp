@@ -1,5 +1,8 @@
 #include "audio_decoder.hpp"
 #include "audio_data.hpp"
+#include <iostream>
+#include <cstdint>
+#include <cassert>
 #include <string>
 #include <vector>
 #include <fstream>
@@ -9,9 +12,9 @@ AudioDecoder::AudioDecoder(std::string path_to_file) {
 }
 
 
-std::vector<uint8_t> AudioDecoder::readFile(const char* filename) {
+void AudioDecoder::read_file() {
 	std::streampos fileSize;
-	std::ifstream file(filename, std::ios::binary);
+	std::ifstream file(this->filepath, std::ios::binary);
 
 	file.seekg(0, std::ios::end);
 	fileSize = file.tellg();
@@ -19,18 +22,44 @@ std::vector<uint8_t> AudioDecoder::readFile(const char* filename) {
 
 	std::vector<uint8_t> fileData(fileSize);
 	file.read((char*) &fileData[0], fileSize);
-	return fileData;
+
+	this->raw_hex = fileData;
 }
 
-AudioData AudioDecoder::decode_wav() {
+void AudioDecoder::decode_wav() {
+	std::size_t i = 0;		// parsing index
+
+	std::string header = "";
+	for (i; i < 4; i++) {
+		header += (unsigned char)(this->raw_hex[i]);
+	}
+	i += 4;
+	assert(header == "RIFF");
 	
+
+	std::string fmt = "";
+	for (i; i < 16; i++) {
+		fmt += (unsigned char)(this->raw_hex[i]);
+	}
+	assert(fmt == "WAVEfmt ");
+
+
+	
+
+
+
 }
 
 
 
 AudioData AudioDecoder::decode() {
+	this->read_file();
+
 	std::string ext = this->filepath.substr(this->filepath.length() - 4, this->filepath.length());
+	
 	if (ext == ".wav") {
-		return this->decode_wav();
+		this->decode_wav();
 	}
+
+	return {this->sample_rate, this->bit_depth, this->samples};
 }

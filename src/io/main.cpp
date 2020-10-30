@@ -2,18 +2,15 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include "audio_decoder.hpp"
 
-void test_file_reading();
 int main();
 
-
-void test_file_reading() {
-
-}
-
-
 int main() {
-	test_file_reading();
+	std::string filepath = "/mnt/c/shared/Personal/Projects/Auto-Transcription/resources/c_major_115_bpm.wav";
+
+	AudioDecoder decoder = AudioDecoder(filepath);
+	auto data = decoder.decode();
 
 	return 0;
 }

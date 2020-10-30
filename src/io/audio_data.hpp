@@ -2,12 +2,13 @@
 #define AUDIO_DATA
 
 #include <vector>
+#include <cstdint>
 
 struct AudioData {
 	double sample_rate;
-	unsigned long bit_depth;
+	unsigned int bit_depth;
 
-	std::vector<uint32_t> samples;
+	std::vector<std::uint32_t> samples;
 };
 
 #endif
