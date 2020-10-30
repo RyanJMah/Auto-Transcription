@@ -8,7 +8,7 @@ struct AudioData {
 	double sample_rate;
 	unsigned int bit_depth;
 
-	std::vector<std::uint32_t> samples;
+	std::vector<int> samples;
 };
 
 #endif

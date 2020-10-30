@@ -12,15 +12,18 @@ class AudioDecoder {
 		// MEMBER VARIABLES
 		std::string filepath;
 
-		std::vector<std::uint8_t> raw_hex;
+		std::vector<uint8_t> raw_hex;
 
 		double sample_rate;
 		unsigned int bit_depth;
-		std::vector<std::uint32_t> samples;
+		std::vector<int> samples;
 		//////////////////////////////////////////////////////////////
 
-		// std::vector<uint8_t> read_file();
 		void read_file();
+
+		std::size_t decode_big_endian(std::size_t start, std::size_t end);
+		std::size_t decode_little_endian(std::size_t start, std::size_t end);
+		std::string uint_to_ascii(std::size_t num);
 
 		void decode_wav();
 
