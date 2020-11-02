@@ -1,6 +1,7 @@
 #include <cmath>
 #include <complex>
 #include <vector>
+#include "signal.hpp"
 #include "signal_processor.hpp"
 
 #define pi 3.141592653589793
@@ -28,6 +29,16 @@ std::vector<double> SignalProcessor::magnitude(T x) {
 		magnitude_x[i] = abs(x[i]);
 	}
 	return magnitude_x;
+}
+
+std::vector<double> SignalProcessor::generate_freq_bins(double fs, std::size_t N) {
+	std::vector<double> freq_bins;
+	freq_bins.resize(N);
+
+	for (std::size_t i = 0; i < N; i++) {
+		freq_bins[i] = i*(fs/N);
+	}
+	return freq_bins;
 }
 
 
@@ -67,16 +78,10 @@ std::vector<std::complex<double>> SignalProcessor::fft_complex(std::vector<std::
 	}
 }
 
-std::vector<double> SignalProcessor::fft(std::vector<double> x) {
+Signal SignalProcessor::fft(std::vector<double> x, double fs) {
 	auto windowed_x = this->hann(x);
-	return this->magnitude(this->fft_complex(windowed_x));	
-}
-std::vector<double> SignalProcessor::generate_freq_bins(double fs, std::size_t N) {
-	std::vector<double> freq_bins;
-	freq_bins.resize(N);
+	auto X = this->fft_complex(windowed_x);
 
-	for (std::size_t i = 0; i < N; i++) {
-		freq_bins[i] = i*(fs/N);
-	}
-	return freq_bins;
+	return {this->generate_freq_bins(fs, X.size()), this->magnitude(X)};
 }
+
